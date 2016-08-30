@@ -1,0 +1,51 @@
+/**
+ * @authors       Peter 王斐
+ * @email         wangfeia@zbj.com
+ * @date          2016-08-30 13:40
+ * @description   
+ */
+body {
+    overflow: hidden;
+    ////display: none;
+    //&.panelsVisible{
+    //    display: block;
+    //}
+}
+
+.stretch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    .panel {
+        height: 100%;
+        .editbox {
+            height: 100%;
+        }
+        iframe {
+            height: 100%;
+            width: 100%;
+        }
+    }
+    .CodeMirror {
+        height: 100%;
+    }
+}
+
+.stretch.panelwrapper {
+    border-left-color: rgb(230, 230, 230) !important;
+    //border-left-color: hsl(60, 0%, 90%) !important;
+    background: white !important;
+}
+
+/* panel borders hovered */
+.resize:hover + .stretch.panelwrapper {
+    border-left-color: #39f !important;
+    border-left-style: dashed !important;
+}
+
+.resize {
+    cursor: move !important;
+}

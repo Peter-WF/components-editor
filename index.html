@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE"/>
+    <title>Title</title>
+    <script src="lib/codemirror/codemirror.js"></script>
+    <link rel="stylesheet" href="src/style/normalize.min.css">
+    <link rel="stylesheet" href="src/index.css">
+    <link rel="stylesheet" href="lib/codemirror/codemirror.css">
+    <link rel="stylesheet" href="lib/splitter/splitter.css">
+
+    <!--加载 codemirror 主题-->
+    <link rel="stylesheet" href="lib/codemirror/theme/monokai.css">
+</head>
+<body>
+<div id="editor-container" class="editor-container stretch">
+
+    <div id="html-editor" class="html-editor stretch panelwrapper" aria-expanded="true">
+        <div class="panel">
+            <div class="editbox">
+            <textarea aria-label="HTML Code Panel" spellcheck="false" autocapitalize="none" autocorrect="off"
+                      id="html"></textarea>
+            </div>
+        </div>
+    </div>
+    <!--<div class="resize"></div>-->
+    <div id="js-editor" class="js-editor stretch panelwrapper" aria-expanded="true">
+        <div class="panel">
+            <div class="editbox">
+            <textarea aria-label="JavaScript Code Panel" spellcheck="false" autocapitalize="none" autocorrect="off"
+                      id="javascript"></textarea>
+            </div>
+        </div>
+    </div>
+    <!--<div class="resize"></div>-->
+    <div id="css-editor" class="css-editor stretch panelwrapper" aria-expanded="true" style="">
+        <div class="panel">
+            <div class="editbox">
+            <textarea aria-label="CSS Code Panel" spellcheck="false" autocapitalize="none" autocorrect="off"
+                      id="css"></textarea>
+            </div>
+        </div>
+    </div>
+    <!--<div class="resize"></div>-->
+    <div id="console-panel" class="console-panel stretch panelwrapper" aria-expanded="true">
+        <div class="panel">
+            <div class="label label-green modal-title">
+                <span class="name"><strong>Console</strong></span>
+            </div>
+            <a class="btn waves-attach clear-button J-clear-button"> clear </a>
+            <div id="console">
+                <ul class="output-list" id="output"></ul>
+            </div>
+            <div class="input-area">
+                <div id="exec"></div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="resize"></div>-->
+    <div id="output-panel" class="output-panel stretch panelwrapper">
+        <div class="panel">
+            <iframe id="show"></iframe>
+        </div>
+    </div>
+    <div class="control"></div>
+</div>
+
+<script src="lib/jquery/jquery171.js"></script>
+<script src="lib/seajs/seajs/2.1.1/sea-debug.js"></script>
+<script src="lib/underscore/underscore.js"></script>
+<script src="src/ie-hack/ie-hack.js"></script>
+
+<!--加载 codemirror mode-->
+<script src="lib/codemirror/mode/javascript/javascript.js"></script>
+<script src="lib/codemirror/mode/xml/xml.js"></script>
+<script src="lib/codemirror/mode/css/css.js"></script>
+
+
+
+<script src="lib/splitter/splitter.js"></script>
+
+<script>
+    seajs.config({
+        path: {}
+    });
+
+    seajs.use(["./src/index.js"]);
+
+    //    seajs.use(['src/editor/editor'], function (Dseditor) {
+    //        var editorObj = new Dseditor({
+    //            editorSelector: {
+    //                html: "#html-editor",
+    //                css: "#css-editor",
+    //                js: "#js-editor"
+    //            },
+    //            showID: "show",
+    //            defaultContent: {
+    //                body: "<div>tttttttttttt</div>",
+    //                script: "var a='a';" +
+    //                "var b='b';" +
+    //                "console.log(a,b);"
+    //            }
+    //        });
+    //    });
+
+    //    var output = $("#output")[0];
+    //    var iframeDocument = output.contentDocument || output.contentWindow.document;
+    //
+    //    var BASE_TPL = "<!DOCTYPE html> \n" +
+    //            "<html lang='zh-Hans'>\n" +
+    //            "<head>\n" +
+    //            "<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />\n" +
+    //            "<title>示例展示</title>\n" +
+    //            "{{header}}\n" +
+    //            "{{style}}\n" +
+    //            "</head>\n<body>\n" +
+    //            "{{body}}\n" +
+    //            "{{footer}}\n" +
+    //            "{{script}}\n" +
+    //            "</body>\n</html>\n";
+    //    iframeDocument.write(BASE_TPL);
+    //    function write() {
+    //
+    //    }
+</script>
+</body>
+</html>
