@@ -4,33 +4,43 @@
  * @date          2016-08-23 15:16
  * @description   EditorPanel 集合
  */
-define(['./editor-panel','./panel'],function (require, exports, module) {
+define(['./editor-panel', './panel'], function (require, exports, module) {
 
-    var EditorPanel=require("./editor-panel");
+    var EditorPanel = require("./editor-panel");
 
-    var Panel=require("./panel");
+    var Panel = require("./panel");
 
     //静态常量
     var PATH = "./lib/";
     //各个框架所需要的js css
     var STATICS = {
         'default': {
-            statics_css: "",
-            statics_js: "",
-            global_js: "<script src='./src/ie-hack/ie-hack.js'></script>\n"+
-            "<script src='./src/innerIframe.js'></script>\n"
-
+            statics_css: [],
+            statics_js: [],
+            global_js: [
+                "<script src='./src/ie-hack/ie-hack.js'></script>",
+                "<script src='./src/innerIframe.js'></script>",
+                // 由于 IE 下会在 doc.write 时默认执行 script 内部 js , 因此这里需要提前给 window.console 赋值, 而不是在 innerIframe.js 中操作
+                "<script>window.console=parent._console;</script>"
+            ]
         },
-        'react': {
-            statics_css: "",
-            statics_js: "\n<script src='" + PATH + "react/react.js'></script>\n" +
-            "<script src='" + PATH + "react/react-dom.js'></script>\n" +
-            "<script src='" + PATH + "react/browser.min.js'></script>\n"
-        },
-        'es6': {
-            statics_css: "",
-            statics_js: "\n<script src='" + PATH + "react/browser.min.js'></script>\n"
-        }
+        // TODO 一期不打算开放 react es6
+        // 'react': {
+        //     statics_css: [],
+        //     statics_js: [
+        //         "<script src='" + PATH + "react/react.js'></script>",
+        //         "<script src='" + PATH + "react/react-dom.js'></script>",
+        //         "<script src='" + PATH + "react/browser.min.js'></script>"
+        //     ],
+        //     global_js: []
+        // },
+        // 'es6': {
+        //     statics_css: [],
+        //     statics_js: [
+        //         "<script src='" + PATH + "react/browser.min.js'></script>"
+        //     ],
+        //     global_js: []
+        // }
     };
     var BASE_TPL = "<!DOCTYPE html> \n" +
         "<html lang='zh-Hans'>\n" +
@@ -97,12 +107,12 @@ define(['./editor-panel','./panel'],function (require, exports, module) {
 
         // 初始化 jsconsole
         this.consolePanel = new Panel({
-            "selector":"#console-panel"
+            "selector": "#console-panel"
         });
 
         // 初始化 outputPanel
         this.outputPanel = new Panel({
-            "selector":"#output-panel"
+            "selector": "#output-panel"
         });
 
         Panel.resizePanel();
@@ -258,7 +268,7 @@ define(['./editor-panel','./panel'],function (require, exports, module) {
      * @returns {*}
      */
     EditorPanelDs.prototype.getStatics = function (framework, type) {
-        return STATICS[framework][type];
+        return STATICS[framework][type].join("\n");
     };
 
     /**
