@@ -35,14 +35,13 @@
   /*margin:30px auto;*/
 }
 .console-panel .output {
-  display: block;
-  white-space: -moz-pre-wrap;
-  /* Firefox 1.0-2.0 */
-  white-space: pre-wrap;
-  /* 现代浏览器 */
-  padding: 0;
   margin: 0 0 10px;
-  border: 0 none;
+}
+.console-panel .output .command {
+  display: block;
+}
+.console-panel .output .prefix {
+  margin-left: 15px;
 }
 .console-panel .output span {
   color: #f7f7f7;
@@ -102,6 +101,8 @@
 .console-panel .output::-webkit-scrollbar {
   width: 7px;
   height: 7px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
 }
 .console-panel .output::-webkit-scrollbar-track-piece {
   -webkit-border-radius: 5px;
