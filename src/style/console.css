@@ -43,6 +43,11 @@
 .console-panel .output .prefix {
   margin-left: 15px;
 }
+.console-panel .output .line {
+  display: block;
+  visibility: hidden;
+  max-height: 18px;
+}
 .console-panel .output span {
   color: #f7f7f7;
 }
@@ -63,6 +68,9 @@
 }
 .console-panel .output span.error {
   color: #f77;
+}
+.console-panel .output span.inner-error {
+  color: red;
 }
 .console-panel .input {
   padding: 0 0 0 15px;
