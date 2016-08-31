@@ -18,10 +18,12 @@ define(['./editor-panel', './panel'], function (require, exports, module) {
             statics_css: [],
             statics_js: [],
             global_js: [
-                "<script src='./src/ie-hack/ie-hack.js'></script>",
-                "<script src='./src/innerIframe.js'></script>",
                 // 由于 IE 下会在 doc.write 时默认执行 script 内部 js , 因此这里需要提前给 window.console 赋值, 而不是在 innerIframe.js 中操作
-                "<script>window.console=parent._console;</script>"
+                "<script>window.console=parent._console;</script>",
+                // 同理给 console 赋值。用于关闭innerWindow默认的报错
+                "<script>window.onerror = function () {console.error(arguments[4]?arguments[4].stack:arguments[0]+'\\n'+arguments[1]+'：'+arguments[2]);return true;};</script>",
+                "<script src='./src/ie-hack/ie-hack.js'></script>",
+                "<script src='./src/innerIframe.js'></script>"
             ]
         },
         // TODO 一期不打算开放 react es6
@@ -70,6 +72,7 @@ define(['./editor-panel', './panel'], function (require, exports, module) {
         //默认的初始化属性值
         var _default = {
             autorun: false,
+            delay: 5000,
             defaultContent: {
                 framework: "default",
                 style: "",
@@ -130,8 +133,10 @@ define(['./editor-panel', './panel'], function (require, exports, module) {
             this.__runBy(ops.btn);
         }
 
+        // 设置延迟
+        this.delay = ops.delay;
 
-        // //4.运行代码
+        // //5.运行代码
         // //为了解决css二次write不加载问题
         // this.$show.on("load", function () {
         //     _this.writeContentToIframe();
@@ -307,7 +312,7 @@ define(['./editor-panel', './panel'], function (require, exports, module) {
         this.editors.forEach(function (EditorPanel) {
             EditorPanel.onchange(_.debounce(function (Editor, changes) {
                 _this.run();
-            }, 5000));
+            }, this.delay));
         });
     };
 

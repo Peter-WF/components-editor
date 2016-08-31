@@ -36,6 +36,7 @@
 }
 .console-panel .output {
   margin: 0 0 10px;
+  line-height: 2rem;
 }
 .console-panel .output .command {
   display: block;

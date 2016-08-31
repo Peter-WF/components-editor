@@ -23,6 +23,7 @@ define(["./editor/index", "./editor/panel", "./ProxyConsole/ProxyConsole"], func
             js: "#js-editor"
         },
         showID: "show",
+        delay:2000,
         defaultContent: {
             body: "<div>tttttttttttt</div>",
             script: "var a='a';\n" +
@@ -35,7 +36,7 @@ define(["./editor/index", "./editor/panel", "./ProxyConsole/ProxyConsole"], func
     window.sandbox = new Sandbox.View({
         el: $('#console-panel'),
         model: new Sandbox.Model({
-            iframe:$("#show")[0]
+            iframe: $("#show")[0]
         })
     });
 

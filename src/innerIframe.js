@@ -6,9 +6,11 @@
  */
 
 ;(function(){
-    // 关闭innerWindow默认的报错
-    window.onerror = function () {
-        console.error(arguments[4]);
-        return true;
-    };
+    // // 关闭innerWindow默认的报错
+    // window.onerror = function () {
+    //     console.error(arguments[4]);
+    //     return true;
+    // };
+
+    test
 })();
