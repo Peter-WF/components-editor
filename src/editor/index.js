@@ -17,7 +17,9 @@ define(['./editor-panel','./panel'],function (require, exports, module) {
         'default': {
             statics_css: "",
             statics_js: "",
-            global_js: "<script src='./src/utils/innerIframeJs.js'></script>\n"
+            global_js: "<script src='./src/ie-hack/ie-hack.js'></script>\n"+
+            "<script src='./src/innerIframe.js'></script>\n"
+
         },
         'react': {
             statics_css: "",
@@ -80,7 +82,9 @@ define(['./editor-panel','./panel'],function (require, exports, module) {
         //1.初始化html,css,js编辑器
         this.htmlEditor = new EditorPanel($.extend({}, ops, {
             editorSelector: ops.editorSelector.html,
-            mode: "text/html"
+            mode: "text/html",
+            syntax: "html", // define Zen Coding syntax
+            profile: "html", // define Zen Coding output profile
         }));
         this.cssEditor = new EditorPanel($.extend({}, ops, {
             editorSelector: ops.editorSelector.css,
@@ -88,7 +92,7 @@ define(['./editor-panel','./panel'],function (require, exports, module) {
         }));
         this.jsEditor = new EditorPanel($.extend({}, ops, {
             editorSelector: ops.editorSelector.js,
-            mode: "application/x-javascript"
+            mode: "javascript"
         }));
 
         // 初始化 jsconsole
@@ -105,22 +109,24 @@ define(['./editor-panel','./panel'],function (require, exports, module) {
 
         this.editors = [this.htmlEditor, this.cssEditor, this.jsEditor];
 
-        //2.绑定编辑器中的代码触发方式
+        //2.将默认格式写入
+        this.__defaultContent = ops.defaultContent;
+        this.__writeDefault();
+
+        //3.绑定编辑器中的代码触发方式
         if (ops.autorun) {	//默认绑定onchange
             this.__autoRun();
         } else {				//如果在ops中传入了btn属性，那么就把代码的运行绑定在btn的click事件上
             this.__runBy(ops.btn);
         }
 
-        //3.将默认格式写入
-        this.__defaultContent = ops.defaultContent;
-        this.__writeDefault();
 
-        //4.运行代码
-        //为了解决css二次write不加载问题
-        this.$show.on("load", function () {
-            _this.writeContentToIframe();
-        });
+        // //4.运行代码
+        // //为了解决css二次write不加载问题
+        // this.$show.on("load", function () {
+        //     _this.writeContentToIframe();
+        // })
+
         this.run();
     };
 
@@ -178,7 +184,7 @@ define(['./editor-panel','./panel'],function (require, exports, module) {
         this.addTo(this.__footerArray, true, this.getStatics(this.__defaultContent.framework, "statics_js"));	//添加静态资源js
         this.addTo(this.__styleArray, true, this.__defaultContent.style);
         this.addTo(this.__scriptArray, true, this.__defaultContent.script);
-        this.__replaceAll();
+        // this.__replaceAll();
 
         this.__write();
     };
@@ -263,7 +269,8 @@ define(['./editor-panel','./panel'],function (require, exports, module) {
         if (this.timer)    window.clearTimeout(this.timer);
         this.timer = window.setTimeout(function () {
             // console.log("run");
-            _this.$show.attr("src", "_blank.html?t=" + (+new Date));	//解决CSS二次不加载问题
+            _this.$show.attr("src", "_blank.html?t=" + (+new Date));	//
+            _this.writeContentToIframe();
         }, 500);
     };
 
@@ -288,7 +295,7 @@ define(['./editor-panel','./panel'],function (require, exports, module) {
     EditorPanelDs.prototype.__autoRun = function () {
         var _this = this;
         this.editors.forEach(function (EditorPanel) {
-            EditorPanel.editor.on("change", _.debounce(function (Editor, changes) {
+            EditorPanel.onchange(_.debounce(function (Editor, changes) {
                 _this.run();
             }, 5000));
         });

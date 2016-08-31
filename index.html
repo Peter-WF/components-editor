@@ -12,6 +12,9 @@
 
     <!--加载 codemirror 主题-->
     <link rel="stylesheet" href="lib/codemirror/theme/monokai.css">
+
+    <!--加载 console 样式-->
+    <link rel="stylesheet" href="lib/javascript-sandbox-console/sandbox.css">
 </head>
 <body>
 <div id="editor-container" class="editor-container stretch">
@@ -44,18 +47,6 @@
     </div>
     <!--<div class="resize"></div>-->
     <div id="console-panel" class="console-panel stretch panelwrapper" aria-expanded="true">
-        <div class="panel">
-            <div class="label label-green modal-title">
-                <span class="name"><strong>Console</strong></span>
-            </div>
-            <a class="btn waves-attach clear-button J-clear-button"> clear </a>
-            <div id="console">
-                <ul class="output-list" id="output"></ul>
-            </div>
-            <div class="input-area">
-                <div id="exec"></div>
-            </div>
-        </div>
     </div>
     <!--<div class="resize"></div>-->
     <div id="output-panel" class="output-panel stretch panelwrapper">
@@ -66,9 +57,22 @@
     <div class="control"></div>
 </div>
 
+<!-- The sandbox template -->
+<script type="text/template" id="tplSandbox">
+    <div class="output"></div>
+    <div class="input">
+        <textarea rows="1" placeholder="<%= placeholder %>"></textarea>
+    </div>
+</script>
+
+<!-- The command/result template (NB whitespace/line breaks matter inside <pre> tag): -->
+<script type="text/template" id="tplCommand"><% if (! _hidden) { %><span class="command"><%= command %></span>
+<span class="prefix"><%= this.resultPrefix %></span><span class="<%= _class %>"><%= result %></span>
+<% } %></script>
+
 <script src="lib/jquery/jquery171.js"></script>
 <script src="lib/seajs/seajs/2.1.1/sea-debug.js"></script>
-<script src="lib/underscore/underscore.js"></script>
+<script src="lib/underscore/underscore.min.js"></script>
 <script src="src/ie-hack/ie-hack.js"></script>
 
 <!--加载 codemirror mode-->
@@ -76,7 +80,11 @@
 <script src="lib/codemirror/mode/xml/xml.js"></script>
 <script src="lib/codemirror/mode/css/css.js"></script>
 
+<!--加载 console 依赖-->
+<script src="lib/javascript-sandbox-console/libs/backbone.min.js"></script>
+<script src="lib/javascript-sandbox-console/libs/backbone-localStorage.min.js"></script><!-- opt -->
 
+<script src="lib/javascript-sandbox-console/sandbox-console.js"></script>
 
 <script src="lib/splitter/splitter.js"></script>
 

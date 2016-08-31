@@ -21,9 +21,9 @@ define(['./panel'], function (require, exports, module) {
 
         var __default = {
             theme: "monokai",
-            mode: "html",
             lineNumbers: true,//是否显示行号
-            lineWrapping: true, //是否强制换行
+            lineWrapping: false, //是否强制换行
+            highlightLine: true
         };
 
         this.ops = $.extend(__default, ops);

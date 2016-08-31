@@ -9,7 +9,7 @@ define(["./editor/index", "./editor/panel",], function (require, exports, module
 
     var EditorPanelDs = require("./editor/index");
 
-    window.Panel=require("./editor/panel");
+    window.Panel = require("./editor/panel");
 
     var editorPanelDs = new EditorPanelDs({
         editorSelector: {
@@ -24,6 +24,14 @@ define(["./editor/index", "./editor/panel",], function (require, exports, module
             "var b='b';" +
             "console.log(a,b);"
         }
+    });
+
+    // Create the sandbox:
+    window.sandbox = new Sandbox.View({
+        el: $('#console-panel'),
+        model: new Sandbox.Model({
+            iframe: $("#show")[0]
+        })
     });
 
 });
