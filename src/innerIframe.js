@@ -5,12 +5,13 @@
  * @description     内部 js
  */
 
-;(function(){
+;(function ($) {
     // // 关闭innerWindow默认的报错
     // window.onerror = function () {
     //     console.error(arguments[4]);
     //     return true;
     // };
-
-    test
-})();
+    $(window).on("resize", function () {
+        parent.$(".size").html(parent.$("#show").width()+"px");
+    });
+})(parent.$);

@@ -76,8 +76,11 @@ body {
             line-height: 20px;
             margin: 0;
             z-index: 11;
-            .size {
-
+            .size{
+                display: none;
+                &.dragging{
+                    display: inline-block;
+                }
             }
             .options {
                 float: right;
@@ -89,20 +92,7 @@ body {
     }
 }
 
-.stretch.panelwrapper {
-    border-left-color: rgb(230, 230, 230) !important;
-    //border-left-color: hsl(60, 0%, 90%) !important;
-}
 
-/* panel borders hovered */
-.resize:hover + .stretch.panelwrapper {
-    border-left-color: #39f !important;
-    border-left-style: dashed !important;
-}
-
-.resize {
-    cursor: move !important;
-}
 
 .mask {
     display: none;
