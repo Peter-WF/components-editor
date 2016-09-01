@@ -65,13 +65,10 @@ define(['./editor-panel', './panel'], function (require, exports, module) {
         if (!ops || !ops.panelList || !ops.showID) {
             throw new Error("请在构造参数中传入panelList和showID的值");
         }
-        if (!ops.btn) {
-            ops.autorun = true;
-        }
 
         //默认的初始化属性值
         var _default = {
-            autorun: false,
+            autorun: true,
             delay: 5000,
             defaultContent: {
                 framework: "default",
@@ -126,13 +123,17 @@ define(['./editor-panel', './panel'], function (require, exports, module) {
         this.__writeDefault();
 
         //3.绑定编辑器中的代码触发方式, 如果是 auto-run 则 设置延迟
-        if (ops.autorun) {	//默认绑定onchange
-            this.__autoRun();
-            // 设置延迟
-            this.delay = ops.delay;
-        } else {				//如果在ops中传入了btn属性，那么就把代码的运行绑定在btn的click事件上
-            this.__runBy(ops.btn);
+        if (ops.runSelector) {
+            //如果在ops中传入了btn属性，那么就把代码的运行绑定在btn的click事件上
+            this.__runBy(ops.runSelector);
         }
+
+        // 初始化 默认执行
+        this.autorun = ops.autorun;
+        this.__initAutoRun();
+        // 设置延迟
+        this.delay = ops.delay;
+
 
         //4. 初始化每个 editor 显示情况 包含 editor + splitter 的定位
         // 将相应 Panel 隐藏
@@ -314,13 +315,22 @@ define(['./editor-panel', './panel'], function (require, exports, module) {
     };
 
     /**
+     * 设置是否默认执行
+     */
+    EditorPanelDs.prototype.setAutoRun = function (ifAutoRun) {
+        this.autorun = ifAutoRun;
+    };
+
+    /**
      * 根据编辑器中的代码改变，自动运行代码
      */
-    EditorPanelDs.prototype.__autoRun = function () {
+    EditorPanelDs.prototype.__initAutoRun = function () {
         var _this = this;
         this.editors.forEach(function (EditorPanel) {
             EditorPanel.onchange(_.debounce(function (Editor, changes) {
-                _this.run();
+                if (_this.autorun) {
+                    _this.run();
+                }
             }, this.delay));
         });
     };

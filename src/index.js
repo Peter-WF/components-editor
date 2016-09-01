@@ -20,6 +20,9 @@ define(["./editor/index", "./editor/panel", "./ProxyConsole/ProxyConsole"], func
 
     // 初始化编辑器
     var editorPanelDs = new EditorPanelDs({
+        showID: "show",
+        delay: 2000,
+        runSelector: "#runwithalerts",
         panelList: {
             html: {
                 selector: "#html-editor",
@@ -42,14 +45,17 @@ define(["./editor/index", "./editor/panel", "./ProxyConsole/ProxyConsole"], func
                 autoDisplay: true
             },
         },
-        showID: "show",
-        delay: 2000,
         defaultContent: {
             body: "<div>tttttttttttt</div>",
             script: "var a='a';\n" +
             "var b='b';\n" +
             "console.log(a,b);"
         }
+    });
+
+    $("#enablejs").on("click", function () {
+        var $this = $(this);
+        editorPanelDs.setAutoRun($this.prop("checked"));
     });
 
 
