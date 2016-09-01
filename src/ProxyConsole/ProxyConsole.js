@@ -7,7 +7,11 @@
 define([], function (require, exports, module) {
 
 
-    function ProxyConsole() {
+    function ProxyConsole(opt) {
+        this.opt = opt;
+        $("body").on("click", this.opt.clearBtnSelector, function () {
+            parent.sandbox.model.evaluate("\:clear");
+        });
     }
 
     var methods = ProxyConsole.prototype.methods = [

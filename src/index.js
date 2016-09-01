@@ -13,17 +13,37 @@ define(["./editor/index", "./editor/panel", "./ProxyConsole/ProxyConsole"], func
     window.Panel = require("./editor/panel");
 
     // 存储内部代理 console
-    window._console = new (require("./ProxyConsole/ProxyConsole"));
+    var ProxyConsole = require("./ProxyConsole/ProxyConsole")
+    window._console = new ProxyConsole({
+        clearBtnSelector: "#clear-console"
+    });
 
     // 初始化编辑器
     var editorPanelDs = new EditorPanelDs({
-        editorSelector: {
-            html: "#html-editor",
-            css: "#css-editor",
-            js: "#js-editor"
+        panelList: {
+            html: {
+                selector: "#html-editor",
+                autoDisplay: true
+            },
+            css: {
+                selector: "#css-editor",
+                autoDisplay: false
+            },
+            js: {
+                selector: "#js-editor",
+                autoDisplay: false
+            },
+            console: {
+                selector: "#console-panel",
+                autoDisplay: false
+            },
+            output: {
+                selector: "#output-panel",
+                autoDisplay: true
+            },
         },
         showID: "show",
-        delay:2000,
+        delay: 2000,
         defaultContent: {
             body: "<div>tttttttttttt</div>",
             script: "var a='a';\n" +
@@ -31,6 +51,7 @@ define(["./editor/index", "./editor/panel", "./ProxyConsole/ProxyConsole"], func
             "console.log(a,b);"
         }
     });
+
 
     // Create the sandbox:
     window.sandbox = new Sandbox.View({
@@ -40,4 +61,14 @@ define(["./editor/index", "./editor/panel", "./ProxyConsole/ProxyConsole"], func
         })
     });
 
+
+    // 绑定切换按钮
+    $("body").on("click", "#control-panels .button", function () {
+        var $selectObj = $(arguments[0].target);
+        var panelId = $selectObj.attr("href");
+
+        $selectObj.toggleClass("active");
+
+        Panel.togglePanel(panelId);
+    });
 });

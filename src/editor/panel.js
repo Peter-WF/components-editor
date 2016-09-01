@@ -83,6 +83,10 @@ define([], function (require, exports, module) {
         }
     };
 
+    /**
+     * 用于控制当前 Panel 显示隐藏
+     * @param panelSelector     panel 选择器
+     */
     Panel.togglePanel = function (panelSelector) {
 
         var $hidePanel = $(panelSelector);

@@ -62,8 +62,8 @@ define(['./editor-panel', './panel'], function (require, exports, module) {
      * @return {[type]} [description]
      */
     function EditorPanelDs(ops) {
-        if (!ops || !ops.editorSelector || !ops.showID) {
-            throw new Error("请在构造参数中传入editorSelector和showID的值");
+        if (!ops || !ops.panelList || !ops.showID) {
+            throw new Error("请在构造参数中传入panelList和showID的值");
         }
         if (!ops.btn) {
             ops.autorun = true;
@@ -94,17 +94,17 @@ define(['./editor-panel', './panel'], function (require, exports, module) {
         var _this = this;
         //1.初始化html,css,js编辑器
         this.htmlEditor = new EditorPanel($.extend({}, ops, {
-            editorSelector: ops.editorSelector.html,
+            editorSelector: ops.panelList.html.selector,
             mode: "text/html",
             syntax: "html", // define Zen Coding syntax
             profile: "html", // define Zen Coding output profile
         }));
         this.cssEditor = new EditorPanel($.extend({}, ops, {
-            editorSelector: ops.editorSelector.css,
+            editorSelector: ops.panelList.css.selector,
             mode: "text/css"
         }));
         this.jsEditor = new EditorPanel($.extend({}, ops, {
-            editorSelector: ops.editorSelector.js,
+            editorSelector: ops.panelList.js.selector,
             mode: "javascript"
         }));
 
@@ -118,7 +118,6 @@ define(['./editor-panel', './panel'], function (require, exports, module) {
             "selector": "#output-panel"
         });
 
-        Panel.resizePanel();
 
         this.editors = [this.htmlEditor, this.cssEditor, this.jsEditor];
 
@@ -126,22 +125,32 @@ define(['./editor-panel', './panel'], function (require, exports, module) {
         this.__defaultContent = ops.defaultContent;
         this.__writeDefault();
 
-        //3.绑定编辑器中的代码触发方式
+        //3.绑定编辑器中的代码触发方式, 如果是 auto-run 则 设置延迟
         if (ops.autorun) {	//默认绑定onchange
             this.__autoRun();
+            // 设置延迟
+            this.delay = ops.delay;
         } else {				//如果在ops中传入了btn属性，那么就把代码的运行绑定在btn的click事件上
             this.__runBy(ops.btn);
         }
 
-        // 设置延迟
-        this.delay = ops.delay;
+        //4. 初始化每个 editor 显示情况 包含 editor + splitter 的定位
+        // 将相应 Panel 隐藏
+        for (var panel in ops.panelList) {
+            if (!ops.panelList[panel].autoDisplay) {
+                Panel.togglePanel(ops.panelList[panel].selector);
+            }
+        }
+        //  移除 loading
+        $("#mask").removeClass("loading");
 
-        // //5.运行代码
+
+        //5.运行代码
+
         // //为了解决css二次write不加载问题
         // this.$show.on("load", function () {
         //     _this.writeContentToIframe();
         // })
-
         this.run();
     };
 
