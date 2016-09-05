@@ -13,7 +13,7 @@ define(["./editor/index", "./editor/panel", "./ProxyConsole/ProxyConsole"], func
     window.Panel = require("./editor/panel");
 
     // 存储内部代理 console
-    var ProxyConsole = require("./ProxyConsole/ProxyConsole")
+    var ProxyConsole = require("./ProxyConsole/ProxyConsole");
     window._console = new ProxyConsole({
         clearBtnSelector: "#clear-console"
     });
@@ -46,7 +46,8 @@ define(["./editor/index", "./editor/panel", "./ProxyConsole/ProxyConsole"], func
             },
         },
         defaultContent: {
-            body: "<div>tttttttttttt</div>",
+            body: "<div>tttttttttttt</div>\n" +
+            "   <div>tttttttttttt</div>",
             script: "var a='a';\n" +
             "var b='b';\n" +
             "console.log(a,b);"

@@ -92,9 +92,7 @@ define(['./editor-panel', './panel'], function (require, exports, module) {
         //1.初始化html,css,js编辑器
         this.htmlEditor = new EditorPanel($.extend({}, ops, {
             editorSelector: ops.panelList.html.selector,
-            mode: "text/html",
-            syntax: "html", // define Zen Coding syntax
-            profile: "html", // define Zen Coding output profile
+            mode: "htmlmixed"
         }));
         this.cssEditor = new EditorPanel($.extend({}, ops, {
             editorSelector: ops.panelList.css.selector,

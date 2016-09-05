@@ -23,7 +23,8 @@ define(['./panel'], function (require, exports, module) {
             theme: "monokai",
             lineNumbers: true,//是否显示行号
             lineWrapping: false, //是否强制换行
-            highlightLine: true
+            highlightLine: true,
+            extraKeys: {"Ctrl": "autocomplete"}// Ctrl 显示 auto complete
         };
 
         this.ops = $.extend(__default, ops);
@@ -49,6 +50,11 @@ define(['./panel'], function (require, exports, module) {
         var textArea = $(this.ops.editorSelector).find("textarea")[0];
 
         this.editor = CodeMirror.fromTextArea(textArea, this.ops);
+
+        var totalLines = this.editor.lineCount();
+
+        this.editor.autoFormatRange({line:0, ch:0}, {line:totalLines})
+
     };
 
     /**
