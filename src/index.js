@@ -46,18 +46,18 @@ define(["./editor/index", "./editor/panel", "./ProxyConsole/ProxyConsole"], func
             },
         },
         defaultContent: {
-            body: `<ul>
-<li>
-<font color="#f90000">
-      Apples
-</font>
-  </li>
-  <li>
-  <font color="#ff9a3d">
-    Oranges
-  </font>
-</li>
-</ul>`,
+            body: '<ul>\n' +
+            '<li>\n' +
+            '<font color="#f90000">\n' +
+            'Apples \n' +
+            '</font>\n' +
+            ' </li>\n' +
+            ' <li>\n' +
+            ' <font color="#ff9a3d">\n' +
+            ' Oranges\n' +
+            '</font>\n' +
+            ' </li>\n' +
+            '</ul>\n',
             script: "var a='a';\n" +
             "var b='b';\n" +
             "console.log(a,b);"
