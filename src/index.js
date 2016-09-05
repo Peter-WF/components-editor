@@ -46,8 +46,18 @@ define(["./editor/index", "./editor/panel", "./ProxyConsole/ProxyConsole"], func
             },
         },
         defaultContent: {
-            body: "<div>tttttttttttt</div>\n" +
-            "   <div>tttttttttttt</div>",
+            body: `<ul>
+<li>
+<font color="#f90000">
+      Apples
+</font>
+  </li>
+  <li>
+  <font color="#ff9a3d">
+    Oranges
+  </font>
+</li>
+</ul>`,
             script: "var a='a';\n" +
             "var b='b';\n" +
             "console.log(a,b);"

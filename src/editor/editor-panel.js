@@ -50,11 +50,6 @@ define(['./panel'], function (require, exports, module) {
         var textArea = $(this.ops.editorSelector).find("textarea")[0];
 
         this.editor = CodeMirror.fromTextArea(textArea, this.ops);
-
-        var totalLines = this.editor.lineCount();
-
-        this.editor.autoFormatRange({line:0, ch:0}, {line:totalLines})
-
     };
 
     /**
@@ -64,6 +59,10 @@ define(['./panel'], function (require, exports, module) {
     EditPanel.prototype.write = function (str) {
         // this.clear();
         this.editor.setValue(str);
+
+        // 格式化
+        var totalLines = this.editor.lineCount();
+        this.editor.autoFormatRange({line: 0, ch: 0}, {line: totalLines})
     };
 
     /**
