@@ -1,0 +1,98 @@
+/**
+ * @authors       Peter 王斐
+ * @email         wangfeia@zbj.com
+ * @date          2016-08-30 13:40
+ * @description   
+ */
+body {
+  overflow: hidden;
+}
+.control .control-panels {
+  text-align: center;
+  overflow: hidden;
+  background: #a2a2a2;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 0;
+}
+.control .control-panels .button {
+  height: 18px;
+  line-height: 18px;
+  background: ghostwhite;
+  border-left: 1px solid #ccc;
+  border-right: 0;
+  border-top: 0;
+  border-bottom: 0;
+  text-decoration: none;
+  display: inline-block;
+  padding: 6px 10px;
+  margin: 0 0;
+  font-size: 13px;
+}
+.control .control-panels .button:first-child {
+  border-left: 1px solid #ccc;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.control .control-panels .button:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.control .control-panels .button.active {
+  background-color: powderblue;
+}
+.stretch {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.stretch .panel {
+  height: 100%;
+  overflow: hidden;
+}
+.stretch .panel .editbox {
+  height: 100%;
+}
+.stretch .panel .console,
+.stretch .panel iframe {
+  height: 100%;
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+  padding-top: 35px;
+  position: absolute;
+}
+.stretch .panel .label {
+  position: relative;
+  padding: 10px 10px 0 10px;
+  line-height: 20px;
+  margin: 0;
+  z-index: 11;
+}
+.stretch .panel .label .size {
+  display: none;
+}
+.stretch .panel .label .size.dragging {
+  display: inline-block;
+}
+.stretch .panel .label .options {
+  float: right;
+}
+.stretch .CodeMirror {
+  height: 100%;
+}
+.mask {
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+}
+.mask.loading {
+  display: block;
+  z-index: 99999;
+}
