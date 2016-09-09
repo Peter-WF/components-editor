@@ -6,14 +6,14 @@
 
 ## 该项目主要用到下列模块
 
-### codemirror
+* [x] codemirror
 
+* [x] javascript-sandbox-console (该模块依赖于 backbone+underscore)
 
-### javascript-sandbox-console (优化)
+* [x] splitter (参考 jsbin 优化)
 
-该模块依赖于 backbone+underscore
+* [x] codemirror
 
-### splitter (参考 jsbin 优化)
 
 ## TODO 
 
