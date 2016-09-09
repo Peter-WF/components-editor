@@ -22,3 +22,15 @@
     border-left-width: 1px;
     border-right-width: 1px;
 }
+
+.move-panel {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: -1;
+    &.active {
+        z-index: 9999;
+    }
+}
