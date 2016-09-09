@@ -6,7 +6,8 @@
  */
 
 .resize {
-    cursor: move;
+    cursor: move; // IE 不支持 ew
+    //cursor: ew-resize; //优先支持 ew
     background: #ccc url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAMCAYAAACnfgdqAAAAMElEQVQIHWP8//8/AxRoMAA5ZkDcAsT/mYCiN4GYBYidGIECUFUMDCAZOEDmUNkAAKKgK80+TE8oAAAAAElFTkSuQmCC) no-repeat 25% 45%;
     -webkit-transition: opacity ease-in 50ms;
     -moz-transition: opacity ease-in 50ms;
@@ -30,6 +31,8 @@
     bottom: 0px;
     left: 0px;
     z-index: -1;
+    cursor: move;
+    //cursor: ew-resize;
     &.active {
         z-index: 9999;
     }
